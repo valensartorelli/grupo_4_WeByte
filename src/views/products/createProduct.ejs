@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('../partials/head') %>
+
+<body class="register">
+    
+    <%- include('../partials/header') %>
+
+        <main id="pd_main-container">
+            <section id="pd_main-producto_">
+                <div class="container">
+                    <br>
+                    <div class="pd_tit-categoria p40">Alta de producto</div>
+                    <ul class="errores"></ul>
+                    <div class="pd_producto-img">
+                        <div class="pd_prod-left">
+                            <form action="/product/create" id="product" method="POST" enctype="multipart/form-data">
+                                <div class="fr_nombre">
+                                    <label for="categoryId" class="fr_lbltexto"> Categoria </label>
+                                    <select name="categoryId" id="categoryId" class="control <%= locals.errors && errors.categoryId ? 'is-invalid' : null %>">
+                                        <option value="" disabled selected>- Seleccione una categoria - </option>
+                                        <% allCategories.forEach(category => { %>
+                                        <option value="<%= category.id %>"
+                                            <% if (locals && locals.oldData && oldData.categoryId == category.id) { %>
+                                                selected="selected" 
+                                            <% } %>>
+                                            <%= category.name %>
+                                        </option>
+                                        <% }); %>
+                                    </select>
+                             
+                                    <div id="category_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.categoryId && locals.errors.categoryId.msg %>
+                                    </div>
+                                </div>
+                                <div class="fr_nombre">
+                                    <label for="brandId" class="fr_lbltexto"> Marca </label>
+                                    <select name="brandId" id="brandId" class="control <%= locals.errors && errors.brandId ? 'is-invalid' : null %>">
+                                        <option value="" disabled selected>- Seleccione una marca - </option>
+                                        <% allBrands.forEach(brand => { %>
+                                        <option value="<%= brand.id %>"
+                                            <% if (locals.oldData && oldData.brandId == brand.id) { %>
+                                                selected="selected" 
+                                            <% } %>>
+                                            <%= brand.name %>
+                                        </option>
+                                        <% }); %>
+                                    </select>
+                                    <div id="brand_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.brandId && locals.errors.brandId.msg %>
+                                    </div>
+                                    
+                                </div>
+                                <div class="fr_nombre">
+                                    <label class="fr_lbltexto" for="name">Nombre</label>
+                                    <input type="text" name="name" id="name" value="<%= locals && locals.oldData ? oldData.name : null %>" class="control <%if(locals&&locals.errors&&errors.name){%><%="error-input is-invalid"%><%}%>" >
+                                    <span id="name_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.name && locals.errors.name.msg %>
+                                    </span>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="description"> Descripción </label>
+                                    <input type="textarea" name="description" id="description" value="<%= locals && locals.oldData ? oldData.description : null %>" class="control <%if(locals&&locals.errors&&errors.description){%><%="error-input is-invalid"%><%}%>" >
+                                    <span id="description_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.description && locals.errors.description.msg %>
+                                    </span>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="extended"> Descripción ampliada</label>
+                                    <textarea name="extended_description" id="extended_description" class="control <%if(locals&&locals.errors&&errors.extended_description){%><%="error-input is-invalid"%><%}%>"><%= locals && locals.oldData ? oldData.extended_description : null %></textarea>
+                                    <span id="descriptionExt_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.extended_description && locals.errors.extended_description.msg %>
+                                    </span>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="price"> Precio </label>
+                                    <input type="text" name="price" id="price" value="<%= locals && locals.oldData ? oldData.price : null %>" class="control <%if(locals&&locals.errors&&errors.price){%><%="error-input is-invalid"%><%}%>" >
+                                    <span id="price_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.price && locals.errors.price.msg %>
+                                    </span>
+                                </div>
+                                <div class="fr_email">
+                                    <label for="colorId" class="fr_lbltexto"> Color </label>
+                                    <select name="colorId" id="colorId" class="control <%= locals.errors && errors.colorId ? 'is-invalid' : null %>">
+                                        <option value="" disabled selected>- Seleccione un color- </option>
+                                        <% allColors.forEach(color => { %>
+                                        <option value="<%= color.id %>"
+                                            <% if (locals.oldData && oldData.colorId == color.id) { %>
+                                                selected="selected" 
+                                            <% } %>>
+                                            <%= color.name %>
+                                        </option>
+                                        <% }); %>
+                                    </select>
+                                    <div id="color_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.colorId && locals.errors.colorId.msg %>
+                                    </div>
+                                </div>
+                                <div class="fr_email">
+                                    <label for="sizeId" class="fr_lbltexto"> Talle </label>
+                                    <select name="sizeId" id="sizeId" class="control <%= locals.errors && errors.sizeId ? 'is-invalid' : null %>">
+                                        <option value="" disabled selected>- Seleccione un talle- </option>
+                                        <% allSizes.forEach(size => { %>
+                                        <option value="<%= size.id %>"
+                                            <% if (locals.oldData && oldData.sizeId == size.id) { %>
+                                                selected="selected" 
+                                            <% } %>>
+                                            <%= size.name %>
+                                        </option>
+                                        <% }); %>
+                                    </select>
+                                    <div id="size_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.sizeId && locals.errors.sizeId.msg %>
+                                    </div>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="stock"> Stock</label>
+                                    <input type="text" name="stock" id="stock" value="<%= locals && locals.oldData ? oldData.stock : null %>" class="control <%if(locals&&locals.errors&&errors.stock){%><%="error-input is-invalid"%><%}%>" >
+                                    <span id="stock_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.stock && locals.errors.stock.msg %>
+                                    </span>
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="stock_min"> Stock Minimo</label>
+                                    <input type="text" name="stock_min" id="stock_min">
+                                </div>
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="stock_max"> Stock Maximo</label>
+                                    <input type="text" name="stock_max" id="stock_max">
+                                </div>
+                                <!--ACA IMAGEN 1 -->
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image1"> Imagen 1 de producto </label>
+                                    <input 
+                                    type="file" 
+                                    name="image1"
+                                    id="image1"
+                                    class="control <%if(locals&&locals.errors&&errors.image1){%><%="error-input is-invalid"%><%}%>" 
+                                    >
+                                    <input 
+                                        type="hidden" 
+                                        name="oldImage1" 
+                                        value="<%= locals.oldData ? oldData.image1 : '' %>"
+                                    >        
+                                </div>
+                                <span id="image1_error" class="error is-invalid">
+                                    <%= locals && locals.errors && locals.errors.image1 && locals.errors.image1.msg %>
+                                </span>
+                                 <!--ACA IMAGEN 2 -->
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image2"> Imagen 2 de producto </label>
+                                    <input 
+                                    type="file" 
+                                    name="image2"
+                                    id="image2"
+                                    class="control <%= locals && locals.errors && errors.image2 ? 'is-invalid' : null %>"
+                                    >
+                                    <input 
+                                        type="hidden" 
+                                        name="oldImage2" 
+                                        value="<%= locals.oldData ? oldData.image2 : '' %>"
+                                    >        
+                                    <span id="image2_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.image2 && locals.errors.image2.msg %>
+                                    </span>
+
+                                </div>
+                                 <!--ACA IMAGEN 3 -->
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image3"> Imagen 3 de producto </label>
+                                    <input 
+                                    type="file" 
+                                    name="image3"
+                                    id="image3"
+                                    class="control <%= locals && locals.errors && errors.image3 ? 'is-invalid' : null %>"
+                                    >
+                                    <input 
+                                        type="hidden" 
+                                        name="oldImage3" 
+                                        value="<%= locals.oldData ? oldData.image3 : '' %>"
+                                    >        
+                                    <span id="image3_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.image3 && locals.errors.image3.msg %>
+                                    </span>
+                                </div>
+                                 <!--ACA IMAGEN 4 -->
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image4"> Imagen 4 de producto </label>
+                                    <input 
+                                    type="file" 
+                                    name="image4"
+                                    id="image4"
+                                    class="control <%= locals && locals.errors && errors.image4 ? 'is-invalid' : null %>"
+                                    >
+                                    <input 
+                                        type="hidden" 
+                                        name="oldImage4" 
+                                        value="<%= locals.oldData ? oldData.image4 : '' %>"
+                                    >        
+                                    <span id="image4_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.image4 && locals.errors.image4.msg %>
+                                    </span>
+                                </div>
+                                 <!--ACA IMAGEN 5 -->
+                                <div class="fr_email">
+                                    <label class="fr_lbltexto" for="image5"> Imagen 5 de producto </label>
+                                    <input 
+                                    type="file" 
+                                    name="image5"
+                                    id="image5"
+                                    class="control <%= locals && locals.errors && errors.image5 ? 'is-invalid' : null %>"
+                                    >
+                                    <input 
+                                        type="hidden" 
+                                        name="oldImage5" 
+                                        value="<%= locals.oldData ? oldData.image5 : '' %>"
+                                    >        
+                                    <span id="image5_error" class="error is-invalid">
+                                        <%= locals && locals.errors && locals.errors.image5 && locals.errors.image5.msg %>
+                                    </span>
+                                </div>
+                                 <!-- FIN IMAGENES -->
+                                <div class="fr_email check-x">
+                                    <label for="home" class="fr_lbltexto"> Destacado Home </label> 
+                                      <input type="checkbox" name="home" id="home" >
+                            </div>
+                            <div class="fr_email">
+                                <label for="visibilityId" class="fr_lbltexto"> Visibilidad </label>
+                                <select name="visibilityId" id="visibilityId" class="control <%= locals.errors && errors.visibilityId ? 'is-invalid' : null %>">
+                                    <option value="" disabled selected>- Seleccione Visibilidad del producto- </option>
+                                    <% allVisibilities.forEach(visibility => { %>
+                                    <option value="<%= visibility.id %>"
+                                        <% if (locals.oldData && oldData.visibilityId == visibility.id) { %>
+                                            selected="selected" 
+                                        <% } %>>
+                                        <%= visibility.name %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                                <div id="visibility_error" class="error is-invalid">
+                                    <%= locals && locals.errors && locals.errors.visibilityId && locals.errors.visibilityId.msg %>
+                                </div>
+                            </div>
+                                <!--</div>-->
+                                <br><br><br>
+                                <div class="fr_registro">
+                                    <div class="fr_registro-left">
+                                        <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
+                                            <span class="pd_gl-cta__content">
+                                                Crear
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="pd_detalle"></section>
+
+            <%- include('../partials/newsletter') %>
+
+            <%- include('../partials/prefooter') %>
+        </main>
+
+        <%- include('../partials/footer') %>
+        <script src="/js/validator/form-product-validation.js"></script>
+
+
+            <!-- Bootstrap Bundle with Popper -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+                crossorigin="anonymous"></script>
+
+</body>
+
+</html>
