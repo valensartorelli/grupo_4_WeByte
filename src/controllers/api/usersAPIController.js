@@ -1,10 +1,7 @@
 const path = require('path');
 let db = require('../../database/models');
 const sequelize = db.sequelize;
-const { Op } = require("sequelize");
 
-const bcryptjs = require('bcryptjs');
-const {validationResult} = require('express-validator');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const User = db.User;
@@ -16,7 +13,7 @@ const Rol = db.Rol;
 const usersAPIController = {
 
     list: (req, res) => {
-        User.findAll()
+        User.findAll({ attributes:['id', 'firstName', 'lastName','email']})
         .then(users => {
             let respuesta = {
                 meta: {
@@ -24,9 +21,19 @@ const usersAPIController = {
                     total: users.length,
                     url: 'api/users'
                 },
-                data: users
+               // data: users
+               data: []
             }
-            res.json(respuesta);
+            users.forEach(user => {
+                respuesta.data.push({
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    detail: `/api/users/${user.id}`
+                })
+            });
+            return res.json(respuesta);
         })
         .catch( err => {
             res.send({ err: 'Not found' });
@@ -36,9 +43,10 @@ const usersAPIController = {
         console.log('entre a la api de detalle de usuario')
         console.log('----------------------------')
         let userId = req.params.id;
-        User.findByPk(userId,
+        User.findByPk(userId, 
             {
-                include : ['rol']
+            //     include : ['rol']
+            attributes:['firstName', 'lastName', 'userName', 'email', 'avatar']
             })
             .then(user => {
                 let respuesta = {
@@ -47,7 +55,14 @@ const usersAPIController = {
                         total: user.length,
                         url: '/api/users/:id'
                     },
-                    data: user
+                    data: {
+                        userId : user.id,
+                        firstName : user.firstName,
+                        lastName : user.lastName,
+                        userName : user.userName,
+                        email : user.email,
+                        avatar : req.headers.host + '/avatars/' + user.avatar
+                    }
                 }
                 res.json(respuesta);
             })
@@ -65,9 +80,9 @@ const usersAPIController = {
                     total: users.length,
                     url: 'api/users/count'
                 },
-                data: users
+                data: {users}
             }
-            res.json("El total de usuarios es " + respuesta.meta.total);
+         res.json("El total de usuarios es " + respuesta.meta.total );
         })
         .catch( err => {
             res.send({ err: 'Not found' });

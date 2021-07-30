@@ -47,6 +47,7 @@ const apiUserRouter = require('./src/routes/api/users')
 //Aquí llamo a la ruta de las api de productos
 const apiProductRouter = require('./src/routes/api/products')
 
+
 // ruteo
 app.use('/', homeRoutes);
 app.use('/product', productRoutes);
@@ -61,7 +62,6 @@ app.use('/address', addressRoutes);
 //Aquí creo la colección de mis recursos de usuarios (APIs)
 app.use('/api/users', apiUserRouter);
 app.use('/api/products', apiProductRouter);
-
 
 //app.use('/', (req, res) => res.json({ clave: "con el server" }));
 

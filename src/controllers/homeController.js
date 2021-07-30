@@ -21,9 +21,9 @@ let homeController = {
                    "brand", "category", "color", "size", "visibility", "images"
                 ]
             });
-
-            console.log(products);
-            console.log("URL: " + req.params.category);
+            console.log("Entre a la Home");
+            // console.log(products);
+            // console.log("URL: " + req.params.category);
             
             const categoria = req.params.category;
             return res.render('index', {products, categoria});

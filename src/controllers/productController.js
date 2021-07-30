@@ -26,9 +26,9 @@ const productController = {
                    "brand", "category", "color", "size", "visibility", "images"
                 ]
             });
-
-            console.log(products);
-            console.log("URL: " + req.params.category);
+            console.log("Entre al listado de Productos");
+            //console.log(products);
+           console.log("URL: " + req.params.category);
             
             const categoria = req.params.category;
             return res.render('products/products', {products, categoria});
