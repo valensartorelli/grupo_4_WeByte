@@ -27,14 +27,27 @@ const productAPIController = {
                    "brand", "category", "color", "size", "visibility", "images"
                 ]
             });
-            //const categoria = req.params.category;
-            //return res.render('products/products', {products, categoria});
+            let categories = await Category.findAll({
+                include: [
+                    'products'
+                ]
+            });
+
+                 
+            //Cuento las propiedades por cateoría para countByCategory
+            let countByCategory = {
+                hombre: categories[0].products.length,
+                mujer: categories[1].products.length
+                //ninio: categories[2].products.length
+            }
+
             
             // API que reemplaza a la funcion normal
             let respuesta = {
                 meta: {
                     status : 200,
                     total: products.length,
+                    countByCategory:countByCategory,
                     url: 'api/products'
                 },
                 data: []
@@ -47,9 +60,9 @@ const productAPIController = {
                     description: product.description,
                     extended_description: product.extended_description,
                     price: product.price,
-                    category: product.category,
-                    color: product.color,
-                    size: product.size,
+                    category: product.category.name,
+                    color: product.color.name,
+                    size: product.size.name,
                     //images: product.images,
                     details: `/api/products/${product.id}`
                 })
