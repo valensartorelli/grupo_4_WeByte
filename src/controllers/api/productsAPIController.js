@@ -32,22 +32,20 @@ const productAPIController = {
                     'products'
                 ]
             });
-
-                 
-            //Cuento las propiedades por cateoría para countByCategory
+      
+            //Cuento los productos por cateoría
             let countByCategory = {
-                hombre: categories[0].products.length,
-                mujer: categories[1].products.length
-                //ninio: categories[2].products.length
+                hombre: categories[0].products.length || 0,
+                mujer: categories[1].products.length || 0,
+                ninio: categories[2].products.length || 0
             }
-
             
             // API que reemplaza a la funcion normal
             let respuesta = {
                 meta: {
                     status : 200,
                     total: products.length,
-                    countByCategory:countByCategory,
+                    countByCategory: countByCategory,
                     url: 'api/products'
                 },
                 data: []
@@ -137,30 +135,47 @@ const productAPIController = {
             res.send({ err: 'Not found' });
         }
     },
-    
-    category: (req, res) => {
-        Product.findAndCountAll({
-            include: [
-               { model: category, 
-                required: true 
-            }
-            ]
-        })
-        .then(products => {
-            let respuesta = {
-                meta: {
-                    status : 200,
-                    total: products.length,
-                    url: 'api/products/countByCat'
-                },
-                data: products
-            }
-            res.json(respuesta);
-        })
-        .catch( err => {
-            res.send({ err: 'Not found' });
-        });
+    latest: (req, res) =>{
+
+        Product.findOne({ 
+        order: [
+            ['id', 'DESC']
+        ],
+        include: [
+            "brand", "category", "color", "size", "visibility", "images"
+         ]
+    })
+    .then( product => JSON.parse(JSON.stringify(product)))
+    .then( product => {
+        let respuesta = {
+            meta: {
+                status: 200,
+                url: 'api/products/latest'
+            },
+        data: {
+        id: product.id,
+        category: product.category.name,
+        name: product.name,
+        description: product.description,
+        extended_description: product.extended_description,
+        price: product.price,
+        color: product.color.name,
+        size: product.size.name,
+        stock: product.stock,
+        stock_min: product.stock_min,
+        stock_max: product.stock_max,
+        image: req.headers.host + '/images/' + product.images[0].name,
+        visibilidad: product.visibility.name
     }
+}
+res.json(respuesta);
+    })
+    
+    .catch( err => {
+        res.send({ err: 'Not found' });
+    })
+    
+}
     
 
 
