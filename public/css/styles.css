@@ -103,6 +103,13 @@ header {
     width: 200px;
 }
 
+.e404 {
+    width: 300px; margin: auto;
+    display: block;
+    text-align: center;
+    padding: 15px 0px;
+}
+
 .logo-xs {
     width: 105px;
 }

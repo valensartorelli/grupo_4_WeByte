@@ -69,6 +69,10 @@ app.use('/api/products', apiProductRouter);
 app.use('/api/brands', apiBrandRouter);
 app.use('/api/categories', apiCategoryRouter);
 
+app.use ((req, res, next) => {
+    res.status(404).render('error404')
+});
+
 //app.use('/', (req, res) => res.json({ clave: "con el server" }));
 
 app.listen(PORT, () => {

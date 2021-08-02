@@ -48,7 +48,7 @@ const productAPIController = {
                         status : 200,
                         total: products.length,
                         countByCategory: countByCategory,
-                        url: 'api/products'
+                        url: req.headers.host + 'api/products'
                     },
                     data: []
                     //data: products
@@ -64,7 +64,7 @@ const productAPIController = {
                         color: product.color.name,
                         size: product.size.name,
                         //images: product.images,
-                        details: `/api/products/${product.id}`
+                        details: req.headers.host + `/api/products/${product.id}`
                     })
                 });
                 res.json(respuesta);
@@ -90,7 +90,7 @@ const productAPIController = {
                     meta: {
                         status: 200,
                         total: product.length,
-                        url: '/api/products/:id'
+                        url: req.headers.host + '/api/products/:id'
                     },
                     data: {
                     id: product.id,
@@ -130,7 +130,7 @@ const productAPIController = {
                 meta: {
                     status : 200,
                     total: products.length,
-                    url: 'api/products/count'
+                    url: req.headers.host + 'api/products/count'
                 },
                 data: products
             }
@@ -155,7 +155,7 @@ const productAPIController = {
         let respuesta = {
             meta: {
                 status: 200,
-                url: 'api/products/latest'
+                url: req.headers.host + '/api/products/latest'
             },
         data: {
         id: product.id,
