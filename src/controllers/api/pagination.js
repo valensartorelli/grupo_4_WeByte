@@ -17,7 +17,7 @@ module.exports = (req, res) => {
                 perPage: parseInt(query.perPage) || 10,
                 name: query.name || '',
                 description: query.description || '',
-                url: `http://localhost:3001/api/products/?query=${JSON.stringify(query)}`
+                url: req.headers.host + `/api/products/?query=${JSON.stringify(query)}`
             }
         },
         data: {
