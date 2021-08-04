@@ -17,7 +17,7 @@ module.exports = (req, res) => {
                 perPage: parseInt(query.perPage) || 10,
                 name: query.name || '',
                 description: query.description || '',
-                url: `http://localhost:3001/api/products/?query=${JSON.stringify(query)}`
+                url: `/api/products/?query=${JSON.stringify(query)}`
             }
         },
         data: {
@@ -27,7 +27,7 @@ module.exports = (req, res) => {
                     name: '',
                     description: '',
                     price: null,
-                    category: '',
+                    category: null,
                     url: '',
                 },
             ]
@@ -42,7 +42,7 @@ module.exports = (req, res) => {
             description: { [Op.substring]: response.meta.query.description }, 
         },
         order: [ 
-            ['name', 'DESC'], 
+            ['id', 'ASC'], 
         ],
         limit: response.meta.query.perPage,
         offset,
@@ -67,7 +67,7 @@ module.exports = (req, res) => {
                     name: currentPage.name,
                     description: currentPage.description,
                 };
-                response.meta.next.url = req.headers.host + `/api/products/?query=${JSON.stringify(response.meta.next)}`;
+                response.meta.next.url = `/api/products/?query=${JSON.stringify(response.meta.next)}`;
             }
             
             if ( currentPage.page > 1 ) {
@@ -77,7 +77,7 @@ module.exports = (req, res) => {
                     name: currentPage.name,
                     description: currentPage.description,
                 };
-                response.meta.prev.url = req.headers.host + `/api/products/?query=${JSON.stringify(response.meta.prev)}`;
+                response.meta.prev.url = `/api/products/?query=${JSON.stringify(response.meta.prev)}`;
             }
 
             response.data.list = result.rows.map(row => {
@@ -87,7 +87,7 @@ module.exports = (req, res) => {
                     description: row.description,
                     price: row.price,
                     category: row.category.name,
-                    url: req.headers.host + `/api/products/${row.id}`   //Capturar location host y agregar a la url al comienzo
+                    url: `/api/products/${row.id}`   //Capturar location host y agregar a la url al comienzo
                 }
                 return product
             });

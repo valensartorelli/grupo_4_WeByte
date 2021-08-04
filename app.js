@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors')
 const methodOverride = require('method-override');
 const session = require('express-session');
 const cookies = require('cookie-parser');
@@ -19,6 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 
 //permite metodos put / delete
 app.use(methodOverride('_method'));
+
+// habilita interconexion entre puertos
+app.use(cors())
 
 //User
 const userLoggedMiddleware = require('./src/middlewares/userLoggedMiddleware');

@@ -43,18 +43,20 @@ const productAPIController = {
                 }
                 
                 // API que reemplaza a la funcion normal
-                let respuesta = {
+                let response = {
                     meta: {
                         status : 200,
                         total: products.length,
                         countByCategory: countByCategory,
-                        url: req.headers.host + 'api/products'
+                        url: '/api/products'
                     },
-                    data: []
+                    data: {
+                        list: []
+                    }
                     //data: products
                 }
                 products.forEach(product => {
-                    respuesta.data.push({
+                    response.data.list.push({
                         id: product.id,
                         name: product.name,
                         description: product.description,
@@ -66,8 +68,9 @@ const productAPIController = {
                         //images: product.images,
                         details: req.headers.host + `/api/products/${product.id}`
                     })
+                    return product
                 });
-                res.json(respuesta);
+               return res.json(response);
             }
             catch(error){
                 res.send({ err: 'Not found' });
@@ -90,7 +93,7 @@ const productAPIController = {
                     meta: {
                         status: 200,
                         total: product.length,
-                        url: req.headers.host + '/api/products/:id'
+                        url: '/api/products/:id'
                     },
                     data: {
                     id: product.id,
@@ -114,6 +117,7 @@ const productAPIController = {
                 res.send({ err: 'Not found' });
             });
     },
+
     count: async (req, res) =>{
         try{ 
             let products = await Product.findAll({
@@ -130,7 +134,7 @@ const productAPIController = {
                 meta: {
                     status : 200,
                     total: products.length,
-                    url: req.headers.host + 'api/products/count'
+                    url: '/api/products/count'
                 },
                 data: products
             }
@@ -140,6 +144,7 @@ const productAPIController = {
             res.send({ err: 'Not found' });
         }
     },
+
     latest: (req, res) =>{
 
         Product.findOne({ 
@@ -155,7 +160,7 @@ const productAPIController = {
         let respuesta = {
             meta: {
                 status: 200,
-                url: req.headers.host + '/api/products/latest'
+                url: '/api/products/latest'
             },
         data: {
         id: product.id,
