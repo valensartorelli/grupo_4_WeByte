@@ -2,6 +2,8 @@ const path = require('path');
 let db = require('../../database/models');
 const sequelize = db.sequelize;
 
+const pagination = require('./paginationUsers');
+
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const User = db.User;
@@ -13,31 +15,38 @@ const Rol = db.Rol;
 const usersAPIController = {
 
     list: (req, res) => {
-        User.findAll({ attributes:['id', 'firstName', 'lastName','email']})
-        .then(users => {
-            let respuesta = {
-                meta: {
-                    status : 200,
-                    total: users.length,
-                    url: 'api/users'
-                },
-               // data: users
-               data: []
-            }
-            users.forEach(user => {
-                respuesta.data.push({
-                    id: user.id,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    detail: `/api/users/${user.id}`
-                })
+        if ( !req.query.query ) {
+            let users = User.findAll({ attributes:['id', 'firstName', 'lastName','email']})
+            .then(users => {
+                let response = {
+                    meta: {
+                        status : 200,
+                        total: users.length,
+                        url: 'api/users'
+                    },
+                   // data: users
+                   data: {
+                    list: []
+                }
+                }
+                users.forEach(user => {
+                    response.data.list.push({
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        detail: `/api/users/${user.id}`
+                    })
+                    return user
+                });
+                return res.json(response);
+            })
+            .catch( err => {
+                res.send({ err: 'Not found' });
             });
-            return res.json(respuesta);
-        })
-        .catch( err => {
-            res.send({ err: 'Not found' });
-        });
+        } else {
+            pagination(req, res);
+        }
     },
     detail: (req, res) =>{
         console.log('entre a la api de detalle de usuario')
