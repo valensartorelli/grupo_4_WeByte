@@ -56,8 +56,7 @@ module.exports = (req, res) => {
         ],
         limit: response.meta.query.perPage,
         offset,
-        distinct: true,
-        include: [ 'products' ]
+        distinct: true
     })
     .then( result => JSON.parse(JSON.stringify(result)) )
     .then( result => {
@@ -76,9 +75,9 @@ module.exports = (req, res) => {
                     lastName: currentPage.lastName,
                     email: currentPage.email,
                 };
-                response.meta.next.url = `/api/users/?query=${JSON.stringify(response.meta.next)}`;
+                response.meta.next.url = `http://localhost:3001/api/users/?query=${JSON.stringify(response.meta.next)}`;
             }
-            
+
             if ( currentPage.page > 1 ) {
                 response.meta.prev = {
                     page: currentPage.page - 1,
@@ -87,7 +86,7 @@ module.exports = (req, res) => {
                     lastName: currentPage.lastName,
                     email: currentPage.email
                 };
-                response.meta.prev.url = `/api/users/?query=${JSON.stringify(response.meta.prev)}`;
+                response.meta.prev.url = `http://localhost:3001/api/users/?query=${JSON.stringify(response.meta.prev)}`;
             }
 
             response.data.list = result.rows.map(row => {
@@ -101,7 +100,7 @@ module.exports = (req, res) => {
 
                 return user
             });
-    
+
             return res.json(response)
         }
 
