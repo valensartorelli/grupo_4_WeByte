@@ -123,11 +123,4 @@ Ruta paginada: http://localhost:3001/api/products/?query={} (JSON query)
         -desription: ''
         -price: ''
 
-La ruta paginada devuelve un objeto JSON que indica: 
-    En meta: 
-        -> status: 500 || 404 || 200
-        -> msg: (Mensaje de error o exito acorde a cada status)
-        -> count: 0 a N cantidad de registros totales encontrados
-        -> next: Objeto literal con las propiedades de query y url de la siguiente página. 
-    En data: 
 */
