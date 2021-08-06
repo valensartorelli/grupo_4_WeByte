@@ -174,7 +174,7 @@ const productAPIController = {
         stock: product.stock,
         stock_min: product.stock_min,
         stock_max: product.stock_max,
-        image: '/images/' + product.images[0].name,
+        image: req.headers.host + '/images/' + product.images[0].name,
         visibilidad: product.visibility.name
     }
 }
