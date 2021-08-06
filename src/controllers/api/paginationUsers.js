@@ -77,7 +77,7 @@ module.exports = (req, res) => {
                 };
                 response.meta.next.url = `http://localhost:3001/api/users/?query=${JSON.stringify(response.meta.next)}`;
             }
-            
+
             if ( currentPage.page > 1 ) {
                 response.meta.prev = {
                     page: currentPage.page - 1,
@@ -100,7 +100,7 @@ module.exports = (req, res) => {
 
                 return user
             });
-    
+
             return res.json(response)
         }
 
@@ -121,24 +121,8 @@ module.exports = (req, res) => {
 
 Ruta endpoint ejemplo: 
 
-http://localhost:3001/api/users/?query={"page":"1","perPage":"2","firstName":"mati","lastName":"vie","email":"matit"}
+http://localhost:3001/api/users/?query={"page":"1","perPage":"2","firstName":"","lastName":"","email":""}
 
 Ruta base: http://localhost:3001/api/users/ (Que devuelve listado completo)
 
-Ruta paginada: http://localhost:3001/api/users/?query={} (JSON query) 
-    -ruta minima para alcanzar paginado con los siguientes valores por defecto [iniciales]:
-        -page: 1
-        -perPage: 10
-        -firstName: ''
-        -lastName: ''
-        -email: ''
-
-        
-La ruta paginada devuelve un objeto JSON que indica: 
-    En meta: 
-        -> status: 500 || 404 || 200
-        -> msg: (Mensaje de error o exito acorde a cada status)
-        -> count: 0 a N cantidad de registros totales encontrados
-        -> next: Objeto literal con las propiedades de query y url de la siguiente página. 
-    En data: 
 */
