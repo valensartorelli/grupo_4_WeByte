@@ -1,7 +1,17 @@
-En cuanto a la dinamica del grupo, si bien sigue siendo muy buena y mantenemos comunicaciones diarias, reuniones semanales y decidimos empezar a dividir el trabajo para agilizar procesos.
+1. Comenzar a hacer:
+Mas allá de que el proyecto integrador finaliza acá, nos proponemos seguir reuniendonos para terminar las funcionalidades que faltan, como el carrito.
 
-Continuamos ayudandonos y trabajando como equipo, pero dividimos las partes del CRUD entre los 3 y nos pusimos de acuerdo en todo lo que queriamos lograr.
+2. Hacer más:
+Practicar más y agregar nuevas funcionalidades
 
-No encontramos mayores dificultades en esta etapa.
+3. Continuar haciendo:
+* Seguir las comunicaciones diarias y reuniones semanales para coordinar trabajos. 
+* Dividir tareas para agilizar el trabajo y lograr mejores resultados.
+* Continuar ayudandonos y trabajando como equipo
+* Seguir usando Trello para volcar todas las tareas que necesitamos terminar y decidir quién tomará cada una.
 
-A futuro nos proponemos seguir trabajando asi e ir mejorando el proyecto para terminarlo de la mejor manera posible
+4. Hacer menos:
+
+5. Dejar de hacer:
+
+
