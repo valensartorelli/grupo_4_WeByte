@@ -28,5 +28,5 @@
 - APIs
 
 ### Tablero de trabajo:
-- [Trello] (https://trello.com/b/iMjbDpru/sprint-6)
+- [Trello] (https://trello.com/b/iMjbDpru/proyecto-integrador-webyte)
 
