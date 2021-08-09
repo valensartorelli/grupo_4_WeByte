@@ -34,6 +34,9 @@ const productAPIController = {
                         'products'
                     ]
                 });
+                let brands = await Brand.findAndCountAll({
+                    include: ["products"]
+                  });
           
                 //Cuento los productos por categoría
                 let countByCategory = {
@@ -41,6 +44,14 @@ const productAPIController = {
                     mujer: categories[1].products.length || 0,
                     ninio: categories[2].products.length || 0
                 }
+
+                let countByBrand = [];
+                brands.rows.forEach((brand) => {
+                    countByBrand.push({
+              name: brand.name,
+              countByBrand: brand.products.length,
+            });
+          });
                 
                 // API que reemplaza a la funcion normal
                 let response = {
@@ -48,6 +59,7 @@ const productAPIController = {
                         status : 200,
                         total: products.length,
                         countByCategory: countByCategory,
+                        countByBrand: countByBrand,
                         url: '/api/products'
                     },
                     data: {
