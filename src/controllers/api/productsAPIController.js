@@ -48,10 +48,10 @@ const productAPIController = {
                 let countByBrand = [];
                 brands.rows.forEach((brand) => {
                     countByBrand.push({
-              name: brand.name,
-              countByBrand: brand.products.length,
-            });
-          });
+                        name: brand.name,
+                        value: brand.products.length,
+                    });
+                });
                 
                 // API que reemplaza a la funcion normal
                 let response = {
