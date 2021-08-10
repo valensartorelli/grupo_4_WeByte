@@ -246,6 +246,12 @@
                                 <br><br><br>
                                 <div class="fr_registro">
                                     <div class="fr_registro-left">
+                                        <button onclick="goBack()" class="pd_gl-cta pd_gl-cta--primary">
+                                            <span class="pd_gl-cta__content flecha-volver"></span>
+                                            <span class="txt-volver">Volver</span>
+                                        </button>
+                                    </div>
+                                    <div class="fr_registro-right">
                                         <button type="submit" class="pd_gl-cta pd_gl-cta--primary">
                                             <span class="pd_gl-cta__content">
                                                 Crear
@@ -253,6 +259,12 @@
                                         </button>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                    function goBack() {
+                                      window.history.back();
+                                    }
+                                </script>
                             </form> 
                         </div>
                     </div>

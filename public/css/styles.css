@@ -25,6 +25,11 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.flecha-volver{
+    transform: rotate(180deg);
+    height: 15px;
+}
+
 body {
     background-color: #ffffff;
     font-family: 'Roboto Condensed', sans-serif;
@@ -891,6 +896,6 @@ input{
         display: inline-block;
         margin-left: 20px;
     }
-    .fr_registro {display: flex; justify-content: space-between; width: 98%;}
+    .fr_registro {display: flex; justify-content: space-between; width: 100%;}
     .fr_registro-left, .fr_registro-rigt{flex: 1 1 50%; align-items: center;}
 }
